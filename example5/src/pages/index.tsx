@@ -49,7 +49,16 @@ export default function Home() {
         {/* Context Example */}
         <div>
           <h2 className="text-2xl font-semibold mb-4">Context Example</h2>
-          <CounterProvider value={{ count, increment, decrement }}>
+          <CounterProvider value={{ count, increment, decrement }
+          //it will trace up the tree to find the counter context 
+          // and provide the count, increment, and decrement values to 
+          // any components that consume the context within the CounterProvider
+
+          // the CounterProvider component is used to wrap the ContextLevelOne component,
+
+          // Example use of global could be:
+          // users, who logged in, theme, language, etc.
+        }>
             <ContextLevelOne />
           </CounterProvider>
         </div>

@@ -1,3 +1,10 @@
+// Google Books API code example 
+// Programmed by: Matt
+// Updated by: dipto-pratyaksa-rmit on 10/4/2026
+// This code defines a React component that allows users to search for books using the Google Books API. 
+// It includes a custom hook to manage the asynchronous search functionality and state management for loading and error handling. 
+// The component renders a search form and displays the results in a grid format, showing book thumbnails, titles, and authors when available.
+
 import { useState } from "react";
 
 // Define the shape of a book object returned by the Google Books API
@@ -30,6 +37,13 @@ const useAsyncHook = (): UseAsyncHookResult => {
 
   // Function to perform the book search
   const search = async (term: string) => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL; // Read the API URL from environment variables NEXT_PUBLIC_ prefix is required for client-side access
+    const apiKey = process.env.NEXT_PUBLIC_API_KEY; // Read the API key from environment variables
+    const apiAnyOtherEnvVariable = process.env.NEXT_PUBLIC_ANY_OTHER_ENV_VARIABLE; // Read any other environment variable for demonstration
+
+    console.log("NEXT_PUBLIC_ANY_OTHER_ENV_VARIABLE:", apiAnyOtherEnvVariable ); // Log the API URL to verify it's being read correctly
+    console.log("NEXT_PUBLIC_REACT_APP_BOOKS_API_URL:", apiUrl ); // Log the API URL to verify it's being read correctly
+
     if (!term) return;
 
     // Set loading state to true and clear any previous errors
@@ -39,9 +53,11 @@ const useAsyncHook = (): UseAsyncHookResult => {
     try {
       // Make the API call to Google Books
       const response = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
-          term
-        )}`
+        `${apiUrl}=${encodeURIComponent(// Encode the search
+          term // Ensure the search term is properly encoded for use in a URL
+        )}&key=${apiKey}` // Ensure the API key is included in the request
+        // Note: In a real application, you should handle API keys securely and not expose them in client-side code. Consider using a backend proxy to keep your API key safe.
+        // For this example, we're including it directly for simplicity, but be cautious in production environments.
       );
       const data = await response.json();
 

@@ -16,7 +16,18 @@ export default function Home() {
   // Effect to demonstrate ref persistence
   useEffect(() => {
     const interval = setInterval(() => {
-      countRef.current += 1;
+      countRef.current += 1; // This updates the ref value, but does not trigger a re-render
+      // The updated ref value will be logged in the console, 
+      // but the UI won't update to reflect this change
+      // This demonstrates that useRef values persist between renders and can be updated without causing a re-render
+      // Check the console to see the ref value changing every second, 
+      // while the UI remains unchanged
+      // This is a common use case for useRef, 
+      // where you want to keep track of a value that doesn't need to trigger a re-render when it changes
+      // For example, you might use a ref to keep track of a timer ID, 
+      // a previous value, 
+      // or any mutable value that you want to persist across renders without causing re-renders
+
       console.log("Ref value:", countRef.current);
     }, 1000);
 
@@ -39,7 +50,14 @@ export default function Home() {
             <div className="space-y-4">
               <p className="text-2xl font-bold text-blue-600">Count: {count}</p>
               <button
-                onClick={() => setCount((c) => c + 1)}
+                onClick={() => setCount((c) => c + 1)
+                  // This will trigger a re-render when updated
+                  // Every time the count state is updated, the component will re-render to reflect the new count value in the UI
+                  // This is the expected behavior of useState, as it is designed to manage state that affects the rendering of the component
+                  // In contrast, updating a ref does not trigger a re-render, which is why we can use refs for values that we want to persist without causing re-renders
+
+
+                }
                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
               >
                 Increment State
@@ -57,11 +75,22 @@ export default function Home() {
             </h2>
             <div className="space-y-4">
               <p className="text-2xl font-bold text-green-600">
-                Ref Value: {countRef.current}
+                Ref Value: {countRef.current
+                // This value will not update in the UI when the ref is updated,
+                // because updating a ref does not trigger a re-render
+                // The ref value will update in the console log every second due to the interval,
+                // but the UI will not reflect these changes, demonstrating the key difference between useState and useRef
+
+                }
               </p>
               <button
                 onClick={() => {
-                  countRef.current += 1;
+                  countRef.current += 1; // This updates the ref value, but does not trigger a re-render
+                  // The updated ref value will be logged in the console,
+                  // but the UI won't update to reflect this change
+                  // This demonstrates that useRef values persist between renders and can be updated without causing a re-render
+                  // Check the console to see the ref value changing when this button is clicked, 
+                  // while the UI remains unchanged 
                   console.log("Ref updated:", countRef.current);
                 }}
                 className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"

@@ -1,7 +1,10 @@
 import { useCounter } from "../../context/CounterContext";
 
 export default function LevelThree() {
-  const { count, increment, decrement } = useCounter();
+  const { count, increment, decrement } = useCounter(); 
+  // we use the useCounter hook to access the count, increment, and decrement values from the CounterContext,
+  // this allows us to display the current count and provide buttons 
+  // to increment and decrement the count using the functions provided by the context
 
   return (
     <div className="p-4 border-2 border-purple-500 rounded-lg">

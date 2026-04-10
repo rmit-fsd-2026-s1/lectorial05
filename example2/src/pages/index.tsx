@@ -42,12 +42,21 @@ export default function Home() {
 
   // This function is recreated on every render
   const handleIncrement1 = () => {
-    setCount1((c) => c + 1);
+    setCount1((c) => c + 1); // This will trigger a re-render, 
+    // and since the function is recreated, 
+    // it will cause the ExpensiveButton to re-render as well, even if count2 has not changed
+
   };
 
   // This function is memoized and never changes
   const handleIncrement2 = useCallback(() => {
-    setCount2((c) => c + 1);
+    setCount2((c) => c + 1); // This will trigger a re-render,
+    // but since the function is memoized,
+    // it will not cause the ExpensiveButton to re-render unless count2 changes
+    // This demonstrates how useCallback can help 
+    // to prevent unnecessary re-renders of child components 
+    // by memoizing functions that are passed as props
+
   }, []); // Empty dependency array means it never changes
 
   return (

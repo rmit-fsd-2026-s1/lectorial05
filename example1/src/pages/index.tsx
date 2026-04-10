@@ -27,7 +27,16 @@ export default function Home() {
             Add Random Number
           </button>
           <button
-            onClick={() => setCount((c) => c + 1)}
+            onClick={() => setCount((c) => c + 1)
+              // This will trigger a re-render, 
+              // but the expensive calculation will not run because the numbers array has not changed
+              // This demonstrates how useMemo helps to optimize performance 
+              // by avoiding unnecessary calculations on every render
+              // If we were to calculate the sum directly in the render without useMemo, 
+              // it would run on every render, which could be inefficient if the numbers array is large
+              // By using useMemo, we ensure that the expensive calculation only runs when it needs to, 
+              // which can significantly improve performance in cases where the calculation is costly              
+            }
             className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
           >
             Increment Counter
@@ -36,8 +45,15 @@ export default function Home() {
 
         <div className="space-y-2">
           <p>Numbers: {numbers.join(", ")}</p>
-          <p>Sum: {expensiveCalculation}</p>
-          <p>Counter: {count}</p>
+          <p>Sum: {expensiveCalculation
+            // The expensive calculation is memoized, 
+            // so it will only be recalculated when the numbers array changes
+
+            }</p>
+          <p>Counter: {count
+            // The counter is independent of the expensive calculation,
+            // so it can be updated without triggering the expensive calculation
+            }</p>
         </div>
       </div>
 
